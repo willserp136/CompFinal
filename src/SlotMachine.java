@@ -1,8 +1,16 @@
 import java.util.*;
-public class Slot_Machine
-{
-	public static void main (String [] args)
-	{
+import javafx.scene.control.TextField;
+
+public class SlotMachine {
+	
+	
+	boolean playAgain = true;
+	
+	public SlotMachine() {
+		
+	}
+
+	public static void main(String[] args){
 		Scanner keyboard = new Scanner (System.in);
 		int tokens;
 		String answer;
@@ -17,7 +25,7 @@ public class Slot_Machine
 		System.out.println("-7 equals Jackpot");
 		System.out.println ("--Slot Machine--");
 		System.out.println("You have 100 tokens. Each pull costs 1 token. Would you like to play? (Y for yes, N for no)");
-		
+
 		answer = keyboard.next ();
 
 		int wheel[][] = new int[3][2];
@@ -182,10 +190,7 @@ public class Slot_Machine
 			}
 		}
 	}
+	public static void endProgram() {
+		System.exit(0);
+	}
 }
-
-
-
-
-
-
