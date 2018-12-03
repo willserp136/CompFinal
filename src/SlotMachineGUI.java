@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 
 
-public class SlotMachineGUI extends Application {
+public class Slot_MachineGUI extends Application {
 
 	//create playAgain for button
 	public static boolean playAgain = false;
@@ -411,29 +411,29 @@ public class SlotMachineGUI extends Application {
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
 						}
-						else if(wheel[0][1] == -5 && wheel[0][1] == -4 && wheel[0][1] == -3)
+						else if(wheel[0][1] == -5 && wheel[0][1] == -3 && wheel[0][1] == -4)
 						{
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
 						}
 					}
 					//Checks if all the numbers are different
-					if (wheel[0][1] != wheel[1][1] && wheel[0][1] != wheel[2][1] && wheel[1][1] != wheel[2][1])
+					if (wheel[0][1] == wheel[0][1] || wheel[1][1] == wheel[1][1] || wheel[2][1] == wheel[2][1])
 					{
 
-						if(wheel[0][1] == -2)
+						if(wheel[0][1] == -2 && wheel[1][1] != -2 && wheel[2][1] != -2)
 						{
 							tokens += 3;
 							tfWon.setText("Congratulations! You've won 3 tokens!");
 							playAgain = false;
 						}
-						if(wheel[1][1] == -2)
+						else if(wheel[1][1] == -2 && wheel[0][1] != -2 && wheel[2][1] != -2)
 						{
 							tokens += 3;
 							tfWon.setText("Congratulations! You've won 3 tokens!");
 							playAgain = false;
 						}
-						if(wheel[2][1] == -2)
+						else if(wheel[2][1] == -2 && wheel[1][1] != -2 && wheel[2][1] != -2)
 						{
 							tokens += 3;
 							tfWon.setText("Congratulations! You've won 3 tokens!");
@@ -461,4 +461,3 @@ public class SlotMachineGUI extends Application {
 		}
 	}
 }
-
