@@ -23,13 +23,17 @@ import javafx.stage.Stage;
 
 public class SlotMachineGUI extends Application {
 
+	//create playAgain for button
 	public static boolean playAgain = false;
 
+	//create text fields for GUI
 	public static TextField tfResult = new TextField();
 	public static TextField tfWon = new TextField();
 	public static TextField tfToken = new TextField();
 
+	//create text boxes for GUI
 	public static Label labelResult =  new Label();
+	public static Label labelCombos = new Label();
 
 
 	//allows for scene to be used inside of buttons inside of another scene
@@ -38,17 +42,20 @@ public class SlotMachineGUI extends Application {
 	@Override public void start(Stage primaryStage) {
 
 
+		//set text fields so they cannot have text input
 		tfResult.setEditable(false);
 		tfWon.setEditable(false);
 		tfToken.setEditable(false);
 
+		//set properties of text fields
 		tfResult.setPrefSize(400, 10);
 		tfResult.setAlignment(Pos.CENTER);
 		tfWon.setAlignment(Pos.CENTER);
 		tfToken.setAlignment(Pos.CENTER);
 
+		//set text for text fields
 		labelResult.setText("Slot Combo" + 
-				"\n -1 equals Blank" +
+				"\n 0, -1 equals Blank" +
 				"\n -2 equals Cherry" +
 				"\n -3 equals Bar" +
 				"\n -4 equals Double Bar" +
@@ -56,6 +63,18 @@ public class SlotMachineGUI extends Application {
 				"\n -6 equals Red 7" +
 				"\n -7 equals Jackpot");
 		labelResult.setStyle("-fx-font-size: 1em;");
+		
+		labelCombos.setText("Slot Combo" + 
+		"\n Blanks cannot win you anything" +
+		"\n Three cherries win 12 tokens" +
+		"\n Two cherries win 6 tokens" +
+		"\n One cherry wins 3 tokens" +
+		"\n Three Bars win 25 tokens" +
+		"\n Any combo of three different bars win 12 tokens" +
+		"\n Three double bars win 50 tokens" +
+		"\n Three triple bars win 100 tokens" +
+		"\n Three red 7's win 300 tokens" +
+		"\n Three Jackpots win 1,667 tokens");
 
 
 		//hBox is created
@@ -123,11 +142,15 @@ public class SlotMachineGUI extends Application {
 		btnRoll.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-font-size: 2em;-fx-border-color: #ffffff; -fx-border-width: 5px; ");
 		btnRoll.setAlignment(Pos.CENTER);
 
+		/**
+		 * WHat button Roll does
+		 */
 		btnRoll.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override 
 			public void handle(ActionEvent e) {
 
+				tfWon.clear();
 				playAgain = true;
 				SlotMachine.startGame();
 
@@ -135,7 +158,7 @@ public class SlotMachineGUI extends Application {
 
 
 		GridPane gridPane = new GridPane();
-		gridPane.setMinSize(800, 800);
+		gridPane.setMinSize(1000, 800);
 		//Setting the padding  
 		gridPane.setPadding(new Insets(20, 20, 20, 20)); 
 
@@ -148,6 +171,7 @@ public class SlotMachineGUI extends Application {
 
 		//Arranging all the nodes in the grid 
 		gridPane.add(labelResult, 0, 0);
+		gridPane.add(labelCombos, 2, 0);
 		gridPane.add(tfResult, 1, 0); 
 		gridPane.add(tfWon, 1, 1); 
 		gridPane.add(tfToken, 1, 2); 
@@ -155,7 +179,7 @@ public class SlotMachineGUI extends Application {
 		gridPane.add(btnMainMenu, 0, 2); 
 
 
-		Scene gridScene = new Scene(gridPane, 800,800);
+		Scene gridScene = new Scene(gridPane, 1000,800);
 
 		/**
 		 * End Game Scene
@@ -217,7 +241,7 @@ public class SlotMachineGUI extends Application {
 		pane.setCenter(hBox);
 
 		//make Scene with pane, width, height
-		scene = new Scene(pane, 800, 800); 
+		scene = new Scene(pane, 1000, 800); 
 
 
 		//create final stage for scene to be displayed
@@ -249,14 +273,6 @@ public class SlotMachineGUI extends Application {
 			
 			int wheel[][] = new int[3][2];
 
-
-			//legend
-			//random , value 
-			// 1-2 = bar = -1
-			// 3-5 cherry = -2
-			// 6, 8-10 watermelon = -3
-			// 7 = 7 =-7
-			//
 			while (playAgain == true)
 			{
 				do
@@ -268,7 +284,7 @@ public class SlotMachineGUI extends Application {
 					//Play the game
 					for(int i = 0; i < wheel.length;i++)
 					{
-						if(wheel[i][0] >=1 && wheel[1][0] <=73)
+						if(wheel[i][0] >=0 && wheel[1][0] <=73)
 						{
 							wheel[i][1] = -1;
 						}
@@ -373,38 +389,32 @@ public class SlotMachineGUI extends Application {
 						{
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
-							//playAgain = false;
 						}
 
 						else if(wheel[0][1] == -3 && wheel[0][1] == -5 && wheel[0][1] == -4)
 						{
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
-							//playAgain = false;
 						}
 						else if(wheel[0][1] == -4 && wheel[0][1] == -5 && wheel[0][1] == -3)
 						{
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
-							//playAgain = false;
 						}
 						else if(wheel[0][1] == -4 && wheel[0][1] == -3 && wheel[0][1] == -5)
 						{
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
-							//playAgain = false;
 						}
 						else if(wheel[0][1] == -5 && wheel[0][1] == -4 && wheel[0][1] == -3)
 						{
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
-							//playAgain = false;
 						}
 						else if(wheel[0][1] == -5 && wheel[0][1] == -4 && wheel[0][1] == -3)
 						{
 							tokens += 12;
 							tfWon.setText("Congratulations! You've won 12 tokens!");
-							//playAgain = false;
 						}
 					}
 					//Checks if all the numbers are different
@@ -417,9 +427,22 @@ public class SlotMachineGUI extends Application {
 							tfWon.setText("Congratulations! You've won 3 tokens!");
 							playAgain = false;
 						}
+						if(wheel[1][1] == -2)
+						{
+							tokens += 3;
+							tfWon.setText("Congratulations! You've won 3 tokens!");
+							playAgain = false;
+						}
+						if(wheel[2][1] == -2)
+						{
+							tokens += 3;
+							tfWon.setText("Congratulations! You've won 3 tokens!");
+							playAgain = false;
+						}
 					}
 					tfResult.setText(wheel[0][1] + " " + wheel[1][1] + " " + wheel[2][1]);
 					tfToken.setText("Would you like to play again? You have " + tokens + " tokens.");
+					
 
 					
 				}while(playAgain == true);	
